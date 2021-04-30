@@ -8,9 +8,9 @@ const body = document.querySelector("body"),
 
 let toDos = [];
 
-function bgImage(img_num) {
+function bgImage(imageNumber) {
   const image = new Image();
-  image.src = `images/${img_num + 1}.jpg`;
+  image.src = `images/${imageNumber + 1}.jpg`;
   image.classList.add("bgImages");
   body.prepend(image);
 }
