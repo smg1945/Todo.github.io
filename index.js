@@ -3,7 +3,7 @@ const body = document.querySelector("body"),
   clock_ = whereClock.querySelector("h1"), form = document.querySelector(".js-nameform"),
   input = form.querySelector("input"), welcome = document.querySelector(".js-name"),
   currentUser = "curretUser", show = "showing", todoF = document.querySelector(".js-todo"),
-  todoI = todoF.querySelector("input"), todoL = document.querySelector(".js-todo_list"),
+  todoI = todoF.querySelector("input"), todoL = document.querySelector(".js-toDo_list"),
   todos = "toDos";
 
 let toDos = [];
