@@ -119,3 +119,5 @@ function init() {
   loadTodos();
   todoF.addEventListener("submit", todoHandleSubmit);
 }
+
+init();
