@@ -4,7 +4,7 @@ const body = document.querySelector("body"),
   input = form.querySelector("input"), welcome = document.querySelector(".js-name"),
   currentUser = "curretUser", show = "showing", todoF = document.querySelector(".js-todo"),
   todoI = todoF.querySelector("input"), todoL = document.querySelector(".js-toDo_list"),
-  todos = "toDos";
+  todos = "toDos", weather = document.querySelector(".js-weather"), coords = "coords", API_KEY = "ab5d30aa3360efc6030293699f417dac";
 
 let toDos = [];
 
@@ -110,6 +110,50 @@ function loadTodos() {
     }
 }
 
+function getWeather(lat, lon) {
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    ).then(function(response) {
+        return response.json()
+    }).then(function(json) {
+        const temp = json.main.temp;
+        const place = json.name;
+        weather.innerText = `${temp} @ ${place}`
+    })
+}
+
+function loadCoords() {
+    const load = localStorage.getItem(coords);
+    if (load === null) {
+        whatCoords();
+    } else {
+        const parse = JSON.parse(load);
+        getWeather(parse.latitude, parse.longitude);
+    }
+}
+
+function saveCoords(coordsObj) {
+    localStorage.setItem(coords, JSON.stringify(coordsObj));
+}
+
+function whatCoords() {
+    navigator.geolocation.getCurrentPosition(handleGeo, handleerr)
+}
+
+function handleGeo(position) {
+    const lat = position.coords.latitude, lon = position.coords.longitude,
+        coordsObj = {
+            latitude: lat,
+            longitude: lon
+        };
+    saveCoords(coordsObj);
+    getWeather(lat, lon);
+}
+
+function handleerr() {
+    console.log("Can't find geo location");
+}
+
 function init() {
   const randomNum = randomImage();
   bgImage(randomNum);
@@ -118,6 +162,7 @@ function init() {
   loadName();
   loadTodos();
   todoF.addEventListener("submit", todoHandleSubmit);
+  loadCoords();
 }
 
 init();
