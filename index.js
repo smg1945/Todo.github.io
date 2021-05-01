@@ -105,7 +105,7 @@ function loadTodos() {
     if (load !== null) {
         const parse = JSON.parse(load);
         parse.forEach(function(todo) {
-            insertTodo(toDo.text);
+            insertTodo(todo.text);
         });
     }
 }
@@ -116,9 +116,9 @@ function getWeather(lat, lon) {
     ).then(function(response) {
         return response.json()
     }).then(function(json) {
-        const temp = json.main.temp;
+        const temp = json.main.temp - 273.15;
         const place = json.name;
-        weather.innerText = `${temp} @ ${place}`
+        weather.innerText = `${temp.toFixed(2)} @ ${place}`
     })
 }
 
